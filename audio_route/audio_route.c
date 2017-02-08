@@ -17,6 +17,12 @@
 
 #define LOG_TAG "audio_route"
 /*#define LOG_NDEBUG 0*/
+/*#define VERY_VERY_VERBOSE_LOGGING*/
+#ifdef VERY_VERY_VERBOSE_LOGGING
+#define ALOGVV ALOGV
+#else
+#define ALOGVV(a...) do { } while(0)
+#endif
 
 #include <errno.h>
 #include <expat.h>
@@ -31,11 +37,17 @@
 #define BUF_SIZE 1024
 #define MIXER_XML_PATH "/system/etc/mixer_paths.xml"
 #define INITIAL_MIXER_PATH_SIZE 8
+#define BYTE_ARRAY_MAX_SIZE 512
 
 union ctl_values {
     int *enumerated;
     long *integer;
     void *ptr;
+    unsigned char *bytes;
+};
+
+struct param_values {
+    unsigned int num_bytes;
     unsigned char *bytes;
 };
 
@@ -553,6 +565,95 @@ static void start_tag(void *data, const XML_Char *tag_name,
                 mixer_value.index = -1;
             path_add_value(ar, state->path, &mixer_value);
         }
+    }
+
+    else if (strcmp(tag_name, "param") == 0) {
+        unsigned int vnum;
+        int count;
+        char *str;
+        char *p;
+
+        /* Obtain the mixer ctl and value */
+        ctl = mixer_get_ctl_by_name(ar->mixer, attr_name);
+        if (ctl == NULL) {
+            ALOGE("Control '%s' doesn't exist - skipping", attr_name);
+            goto done;
+        }
+
+        vnum = mixer_ctl_get_num_values(ctl);
+        if (vnum > BYTE_ARRAY_MAX_SIZE) {
+            ALOGE("Byte array control too big(%u)", vnum);
+            goto done;
+        }
+
+        switch (mixer_ctl_get_type(ctl)) {
+        case MIXER_CTL_TYPE_BYTE:
+            str = strdup(attr_value);
+            if (str == NULL) {
+                goto done;
+            }
+
+            p = strtok(str, " ");
+            for (count = 0; p != NULL; count++) {
+                p = strtok(NULL, " ");
+            }
+            ALOGVV("param: %d values in byte array %s to set",
+                   count,
+                   attr_name);
+
+            if (count > BYTE_ARRAY_MAX_SIZE) {
+                count = BYTE_ARRAY_MAX_SIZE;
+            }
+
+            free(str);
+            break;
+        default:
+            goto done;
+        }
+
+        /* locate the mixer ctl in the list */
+        for (ctl_index = 0; ctl_index < ar->num_mixer_ctls; ctl_index++) {
+            if (ar->mixer_state[ctl_index].ctl == ctl) {
+                break;
+            }
+        }
+
+        str = strdup(attr_value);
+        if (str == NULL) {
+            goto done;
+        }
+
+        for (p = strtok(str, " "), count = 0; p != NULL; count++) {
+            value = strtol(p, NULL, 0);
+            if (value < 0) {
+                goto done;
+            }
+            ALOGE_IF(value > 0xFF, "Byte out of range");
+
+            if (state->level == 1) {
+                /* top level param */
+                ALOGVV("param: Initialize %s byte[%d] with %ld",
+                      attr_name,
+                      count,
+                      value);
+                ar->mixer_state[ctl_index].new_value.bytes[count] = value;
+            } else {
+                /* param in a ctl */
+                mixer_value.ctl_index = ctl_index;
+                mixer_value.index = count;
+                mixer_value.value = value;
+
+                ALOGVV("param: Add %s to path %s and set byte[%d] to %ld",
+                       attr_name,
+                       state->path->name,
+                       count,
+                       value);
+                path_add_value(ar, state->path, &mixer_value);
+            }
+
+            p = strtok(NULL, " ");
+        }
+        free(str);
     }
 
 done:
