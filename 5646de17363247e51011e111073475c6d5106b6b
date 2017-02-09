@@ -45,6 +45,30 @@
       "revId": "5646de17363247e51011e111073475c6d5106b6b",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a288981_5f039173",
+        "filename": "audio_route/audio_route.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 2320
+      },
+      "writtenOn": "2017-02-09T05:24:55Z",
+      "side": 1,
+      "message": "We start it with p \u003d strtok(str, \" \") which is in the the first part of the for loop (initializer). All subsequent calls need to pass NULL so we have p \u003d strtok(NULL, \" \").\n\nstrtok operates on str and replaces the \u0027 \u0027 with \u0027\\0\u0027.",
+      "parentUuid": "7a288981_ffac7d8e",
+      "range": {
+        "startLine": 654,
+        "startChar": 11,
+        "endLine": 654,
+        "endChar": 34
+      },
+      "revId": "5646de17363247e51011e111073475c6d5106b6b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
