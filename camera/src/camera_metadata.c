@@ -228,6 +228,12 @@ camera_metadata_t *allocate_copy_camera_metadata_checked(
         return NULL;
     }
 
+    if (src_size < sizeof(camera_metadata_t)) {
+        ALOGE("%s: Source size too small!", __FUNCTION__);
+        android_errorWriteLog(0x534e4554, "67782345");
+        return NULL;
+    }
+
     void *buffer = malloc(src_size);
     memcpy(buffer, src, src_size);
 
