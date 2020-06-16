@@ -31,12 +31,17 @@ namespace android {
 static inline std::vector<std::string> audio_get_configuration_paths() {
     static const std::vector<std::string> paths = []() {
         char value[PROPERTY_VALUE_MAX] = {};
+        char va_aosp[PROPERTY_VALUE_MAX] = {};
         if (property_get("ro.boot.product.vendor.sku", value, "") <= 0) {
             return std::vector<std::string>({"/odm/etc", "/vendor/etc", "/system/etc"});
         } else {
+            property_get("ro.vendor.qti.va_aosp.support", va_aosp, "");
             return std::vector<std::string>({
-                    "/odm/etc", std::string("/vendor/etc/audio/sku_") + value,
-                    "/vendor/etc", "/system/etc"});
+                    "/odm/etc",
+                    std::string("/vendor/etc/audio/sku_") + value +
+                            ((va_aosp[0] == '1') ? "_qssi" : ""),
+                    std::string("/vendor/etc/audio/sku_") + value,
+                    "/vendor/etc/audio", "/vendor/etc", "/system/etc"});
         }
     }();
     return paths;
