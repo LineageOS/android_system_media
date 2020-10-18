@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58a2d5dd_ec221b19",
+        "filename": "audio/include/system/audio_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 4550
+      },
+      "writtenOn": "2020-10-18T16:57:43Z",
+      "side": 1,
+      "message": "This wasn\u0027t in the original commit, but was added in a merge commit before it. It used to live in frameworks/av",
+      "range": {
+        "startLine": 44,
+        "startChar": 20,
+        "endLine": 44,
+        "endChar": 39
+      },
+      "revId": "5daec8946e0a3fe9a7e2fb706512d38e6d42146b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
