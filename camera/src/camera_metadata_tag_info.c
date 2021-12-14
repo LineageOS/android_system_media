@@ -1655,12 +1655,12 @@ int camera_metadata_enum_snprint(uint32_t tag,
         }
         case ANDROID_CONTROL_AF_REGIONS_SET: {
             switch (value) {
-                case ANDROID_CONTROL_AF_REGIONS_SET_TRUE:
-                    msg = "TRUE";
-                    ret = 0;
-                    break;
                 case ANDROID_CONTROL_AF_REGIONS_SET_FALSE:
                     msg = "FALSE";
+                    ret = 0;
+                    break;
+                case ANDROID_CONTROL_AF_REGIONS_SET_TRUE:
+                    msg = "TRUE";
                     ret = 0;
                     break;
                 default:
@@ -1670,12 +1670,12 @@ int camera_metadata_enum_snprint(uint32_t tag,
         }
         case ANDROID_CONTROL_AE_REGIONS_SET: {
             switch (value) {
-                case ANDROID_CONTROL_AE_REGIONS_SET_TRUE:
-                    msg = "TRUE";
-                    ret = 0;
-                    break;
                 case ANDROID_CONTROL_AE_REGIONS_SET_FALSE:
                     msg = "FALSE";
+                    ret = 0;
+                    break;
+                case ANDROID_CONTROL_AE_REGIONS_SET_TRUE:
+                    msg = "TRUE";
                     ret = 0;
                     break;
                 default:
@@ -1685,12 +1685,12 @@ int camera_metadata_enum_snprint(uint32_t tag,
         }
         case ANDROID_CONTROL_AWB_REGIONS_SET: {
             switch (value) {
-                case ANDROID_CONTROL_AWB_REGIONS_SET_TRUE:
-                    msg = "TRUE";
-                    ret = 0;
-                    break;
                 case ANDROID_CONTROL_AWB_REGIONS_SET_FALSE:
                     msg = "FALSE";
+                    ret = 0;
+                    break;
+                case ANDROID_CONTROL_AWB_REGIONS_SET_TRUE:
+                    msg = "TRUE";
                     ret = 0;
                     break;
                 default:
@@ -2488,12 +2488,12 @@ int camera_metadata_enum_snprint(uint32_t tag,
         }
         case ANDROID_SCALER_CROP_REGION_SET: {
             switch (value) {
-                case ANDROID_SCALER_CROP_REGION_SET_TRUE:
-                    msg = "TRUE";
-                    ret = 0;
-                    break;
                 case ANDROID_SCALER_CROP_REGION_SET_FALSE:
                     msg = "FALSE";
+                    ret = 0;
+                    break;
+                case ANDROID_SCALER_CROP_REGION_SET_TRUE:
+                    msg = "TRUE";
                     ret = 0;
                     break;
                 default:
@@ -4330,45 +4330,45 @@ int camera_metadata_enum_value(uint32_t tag,
             break;
         }
         case ANDROID_CONTROL_AF_REGIONS_SET: {
-                enumName = "TRUE";
-                if (strncmp(name, enumName, size) == 0) {
-                    *value = ANDROID_CONTROL_AF_REGIONS_SET_TRUE;
-                    ret = 0;
-                    break;
-                }
                 enumName = "FALSE";
                 if (strncmp(name, enumName, size) == 0) {
                     *value = ANDROID_CONTROL_AF_REGIONS_SET_FALSE;
                     ret = 0;
                     break;
                 }
-            break;
-        }
-        case ANDROID_CONTROL_AE_REGIONS_SET: {
                 enumName = "TRUE";
                 if (strncmp(name, enumName, size) == 0) {
-                    *value = ANDROID_CONTROL_AE_REGIONS_SET_TRUE;
+                    *value = ANDROID_CONTROL_AF_REGIONS_SET_TRUE;
                     ret = 0;
                     break;
                 }
+            break;
+        }
+        case ANDROID_CONTROL_AE_REGIONS_SET: {
                 enumName = "FALSE";
                 if (strncmp(name, enumName, size) == 0) {
                     *value = ANDROID_CONTROL_AE_REGIONS_SET_FALSE;
                     ret = 0;
                     break;
                 }
-            break;
-        }
-        case ANDROID_CONTROL_AWB_REGIONS_SET: {
                 enumName = "TRUE";
                 if (strncmp(name, enumName, size) == 0) {
-                    *value = ANDROID_CONTROL_AWB_REGIONS_SET_TRUE;
+                    *value = ANDROID_CONTROL_AE_REGIONS_SET_TRUE;
                     ret = 0;
                     break;
                 }
+            break;
+        }
+        case ANDROID_CONTROL_AWB_REGIONS_SET: {
                 enumName = "FALSE";
                 if (strncmp(name, enumName, size) == 0) {
                     *value = ANDROID_CONTROL_AWB_REGIONS_SET_FALSE;
+                    ret = 0;
+                    break;
+                }
+                enumName = "TRUE";
+                if (strncmp(name, enumName, size) == 0) {
+                    *value = ANDROID_CONTROL_AWB_REGIONS_SET_TRUE;
                     ret = 0;
                     break;
                 }
@@ -5257,15 +5257,15 @@ int camera_metadata_enum_value(uint32_t tag,
             break;
         }
         case ANDROID_SCALER_CROP_REGION_SET: {
-                enumName = "TRUE";
-                if (strncmp(name, enumName, size) == 0) {
-                    *value = ANDROID_SCALER_CROP_REGION_SET_TRUE;
-                    ret = 0;
-                    break;
-                }
                 enumName = "FALSE";
                 if (strncmp(name, enumName, size) == 0) {
                     *value = ANDROID_SCALER_CROP_REGION_SET_FALSE;
+                    ret = 0;
+                    break;
+                }
+                enumName = "TRUE";
+                if (strncmp(name, enumName, size) == 0) {
+                    *value = ANDROID_SCALER_CROP_REGION_SET_TRUE;
                     ret = 0;
                     break;
                 }

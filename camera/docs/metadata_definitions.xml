@@ -3406,13 +3406,13 @@ xsi:schemaLocation="http://schemas.android.com/service/camera/metadata/ metadata
         <entry name="afRegionsSet" type="byte" visibility="fwk_only"
                enum="true" typedef="boolean">
           <enum>
-            <value>TRUE
-            <notes>AF regions (android.control.afRegions) have been set by the camera client.
+            <value>FALSE
+            <notes>AF regions (android.control.afRegions) have not been set by the camera client.
             </notes>
             </value>
-            <value>FALSE
+            <value>TRUE
             <notes>
-              AF regions (android.control.afRegions) have not been set by the camera client.
+              AF regions (android.control.afRegions) have been set by the camera client.
             </notes>
             </value>
           </enum>
@@ -3429,13 +3429,13 @@ xsi:schemaLocation="http://schemas.android.com/service/camera/metadata/ metadata
         <entry name="aeRegionsSet" type="byte" visibility="fwk_only"
           enum="true" typedef="boolean">
           <enum>
-            <value>TRUE
-            <notes> AE regions (android.control.aeRegions) have been set by the camera client.
+            <value>FALSE
+            <notes> AE regions (android.control.aeRegions) have not been set by the camera client.
             </notes>
             </value>
-            <value>FALSE
+            <value>TRUE
             <notes>
-              AE regions (android.control.aeRegions) have not been set by the camera client.
+              AE regions (android.control.aeRegions) have been set by the camera client.
             </notes>
             </value>
           </enum>
@@ -3452,13 +3452,13 @@ xsi:schemaLocation="http://schemas.android.com/service/camera/metadata/ metadata
         <entry name="awbRegionsSet" type="byte" visibility="fwk_only"
           enum="true" typedef="boolean">
           <enum>
-            <value>TRUE
-            <notes> AWB regions (android.control.awbRegions) have been set by the camera client.
+            <value>FALSE
+            <notes> AWB regions (android.control.awbRegions) have not been set by the camera client.
             </notes>
             </value>
-            <value>FALSE
+            <value>TRUE
             <notes>
-              AWB regions (android.control.awbRegions) have not been set by the camera client.
+              AWB regions (android.control.awbRegions) have been set by the camera client.
             </notes>
             </value>
           </enum>
@@ -8164,14 +8164,14 @@ xsi:schemaLocation="http://schemas.android.com/service/camera/metadata/ metadata
         <entry name="cropRegionSet" type="byte" visibility="fwk_only"
                enum="true" typedef="boolean">
           <enum>
-            <value>TRUE
-            <notes>Crop region (android.scaler.cropRegion) has been set by the
+            <value>FALSE
+            <notes>Crop region (android.scaler.cropRegion) has not been set by the
               camera client.
             </notes>
             </value>
-            <value>FALSE
+            <value>TRUE
             <notes>
-              Scaler crop regions (android.scaler.cropRegion) has not been set by the camera
+              Scaler crop regions (android.scaler.cropRegion) has been set by the camera
               client.
             </notes>
             </value>
