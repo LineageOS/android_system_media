@@ -460,6 +460,7 @@ typedef enum camera_metadata_tag {
             ANDROID_INFO_START,
     ANDROID_INFO_VERSION,                             // byte         | public       | HIDL v3.3
     ANDROID_INFO_SUPPORTED_BUFFER_MANAGEMENT_VERSION, // enum         | system       | HIDL v3.4
+    ANDROID_INFO_DEVICE_STATE_ORIENTATIONS,           // int64[]      | ndk_public   | HIDL v3.7
     ANDROID_INFO_END,
 
     ANDROID_BLACK_LEVEL_LOCK =                        // enum         | public       | HIDL v3.2

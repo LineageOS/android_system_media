@@ -754,6 +754,8 @@ static tag_info_t android_info[ANDROID_INFO_END -
     [ ANDROID_INFO_SUPPORTED_BUFFER_MANAGEMENT_VERSION - ANDROID_INFO_START ] =
     { "supportedBufferManagementVersion",
                                         TYPE_BYTE   },
+    [ ANDROID_INFO_DEVICE_STATE_ORIENTATIONS - ANDROID_INFO_START ] =
+    { "deviceStateOrientations",       TYPE_INT64  },
 };
 
 static tag_info_t android_black_level[ANDROID_BLACK_LEVEL_END -
@@ -3180,6 +3182,9 @@ int camera_metadata_enum_snprint(uint32_t tag,
                 default:
                     msg = "error: enum value out of range";
             }
+            break;
+        }
+        case ANDROID_INFO_DEVICE_STATE_ORIENTATIONS: {
             break;
         }
 
@@ -6018,6 +6023,9 @@ int camera_metadata_enum_value(uint32_t tag,
                     ret = 0;
                     break;
                 }
+            break;
+        }
+        case ANDROID_INFO_DEVICE_STATE_ORIENTATIONS: {
             break;
         }
 
