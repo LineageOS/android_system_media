@@ -100,7 +100,7 @@ message CameraDeviceInfo {
   idx = section_idx * pow(2,16)
 %>\
 % for entry in find_unique_entries(sec):
-% if entry.kind == 'static' and entry.visibility in ("public", "java_public"):
+% if entry.kind == 'static' and entry.visibility in ("public", "java_public", "fwk_java_public"):
     ${protobuf_type(entry)} ${protobuf_name(entry)} = ${idx};
 <%
     idx += 1

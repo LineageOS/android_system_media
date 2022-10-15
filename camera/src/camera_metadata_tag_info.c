@@ -617,6 +617,8 @@ static tag_info_t android_sensor[ANDROID_SENSOR_END -
     { "pixelMode",                     TYPE_BYTE   },
     [ ANDROID_SENSOR_RAW_BINNING_FACTOR_USED - ANDROID_SENSOR_START ] =
     { "rawBinningFactorUsed",          TYPE_BYTE   },
+    [ ANDROID_SENSOR_READOUT_TIMESTAMP - ANDROID_SENSOR_START ] =
+    { "readoutTimestamp",              TYPE_BYTE   },
 };
 
 static tag_info_t android_sensor_info[ANDROID_SENSOR_INFO_END -
@@ -2894,6 +2896,21 @@ int camera_metadata_enum_snprint(uint32_t tag,
                     break;
                 case ANDROID_SENSOR_RAW_BINNING_FACTOR_USED_FALSE:
                     msg = "FALSE";
+                    ret = 0;
+                    break;
+                default:
+                    msg = "error: enum value out of range";
+            }
+            break;
+        }
+        case ANDROID_SENSOR_READOUT_TIMESTAMP: {
+            switch (value) {
+                case ANDROID_SENSOR_READOUT_TIMESTAMP_NOT_SUPPORTED:
+                    msg = "NOT_SUPPORTED";
+                    ret = 0;
+                    break;
+                case ANDROID_SENSOR_READOUT_TIMESTAMP_HARDWARE:
+                    msg = "HARDWARE";
                     ret = 0;
                     break;
                 default:
@@ -6004,6 +6021,21 @@ int camera_metadata_enum_value(uint32_t tag,
                 enumName = "FALSE";
                 if (strncmp(name, enumName, size) == 0) {
                     *value = ANDROID_SENSOR_RAW_BINNING_FACTOR_USED_FALSE;
+                    ret = 0;
+                    break;
+                }
+            break;
+        }
+        case ANDROID_SENSOR_READOUT_TIMESTAMP: {
+                enumName = "NOT_SUPPORTED";
+                if (strncmp(name, enumName, size) == 0) {
+                    *value = ANDROID_SENSOR_READOUT_TIMESTAMP_NOT_SUPPORTED;
+                    ret = 0;
+                    break;
+                }
+                enumName = "HARDWARE";
+                if (strncmp(name, enumName, size) == 0) {
+                    *value = ANDROID_SENSOR_READOUT_TIMESTAMP_HARDWARE;
                     ret = 0;
                     break;
                 }

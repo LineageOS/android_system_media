@@ -165,6 +165,7 @@ message CameraDeviceInfo {
     optional int32 android_sensor_orientation = 983050;
     repeated int32 android_sensor_availableTestPatternModes = 983051;
     repeated Rect android_sensor_opticalBlackRegions = 983052;
+    optional int32 android_sensor_readoutTimestamp = 983053;
     optional Rect android_sensor_info_activeArraySize = 1048576;
     optional RangeInt android_sensor_info_sensitivityRange = 1048577;
     optional int32 android_sensor_info_colorFilterArrangement = 1048578;
