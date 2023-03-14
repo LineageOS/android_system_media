@@ -1413,7 +1413,7 @@ def get_api_level_to_keys(sections, metadata, kind):
   # sort keys)
   api_level_to_keys_ordered = OrderedDict()
   for api_level_ordered in sorted(api_level_to_keys.keys()):
-    api_level_to_keys_ordered[api_level_ordered] = api_level_to_keys[api_level_ordered]
+    api_level_to_keys_ordered[api_level_ordered] = sorted(api_level_to_keys[api_level_ordered])
   return api_level_to_keys_ordered
 
 def remove_synthetic(entries):

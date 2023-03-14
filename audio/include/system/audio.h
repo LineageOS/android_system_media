@@ -1724,6 +1724,12 @@ static inline audio_channel_mask_t audio_channel_mask_out_to_in(audio_channel_ma
     }
 }
 
+static inline audio_channel_mask_t audio_channel_mask_out_to_in_index_mask(audio_channel_mask_t out)
+{
+    return audio_channel_mask_for_index_assignment_from_count(
+            audio_channel_count_from_out_mask(out));
+}
+
 static inline bool audio_channel_position_mask_is_out_canonical(audio_channel_mask_t channelMask)
 {
     if (audio_channel_mask_get_representation(channelMask)

@@ -7682,6 +7682,7 @@ xsi:schemaLocation="http://schemas.android.com/service/camera/metadata/ metadata
           For applications targeting SDK version older than 31, the following table
           describes the minimum required output stream configurations based on the
           hardware level (android.info.supportedHardwareLevel):
+
           Format                                             | Size                                         | Hardware Level | Notes
           :-------------------------------------------------:|:--------------------------------------------:|:--------------:|:--------------:
           {@link android.graphics.ImageFormat#JPEG}          | android.sensor.info.activeArraySize (*1)     | Any            |
@@ -10580,7 +10581,7 @@ xsi:schemaLocation="http://schemas.android.com/service/camera/metadata/ metadata
       </dynamic>
       <static>
         <entry name="readoutTimestamp" type="byte" visibility="fwk_java_public"
-          enum="true" hwlevel="legacy">
+          enum="true" hwlevel="legacy" hal_version="3.8">
         <enum>
           <value>NOT_SUPPORTED
             <notes>This camera device doesn't support readout timestamp and onReadoutStarted
