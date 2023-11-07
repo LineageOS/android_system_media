@@ -5801,7 +5801,7 @@ capability.<wbr/></p>
                 
           <tr class="entry" id="static_android.control.aeAvailableTargetFpsRanges">
             <td class="entry_name
-             " rowspan="3">
+             " rowspan="5">
               android.<wbr/>control.<wbr/>ae<wbr/>Available<wbr/>Target<wbr/>Fps<wbr/>Ranges
             </td>
             <td class="entry_type">
@@ -5885,6 +5885,17 @@ maximum YUV_<wbr/>420_<wbr/>888 output size.<wbr/></li>
             </td>
           </tr>
 
+          <tr class="entries_header">
+            <th class="th_details" colspan="6">HAL Implementation Details</th>
+          </tr>
+          <tr class="entry_cont">
+            <td class="entry_details" colspan="6">
+              <p>HAL must make sure the lower bound and upper bound of each supported targetFpsRange can
+be reached.<wbr/> For example,<wbr/> if HAL supports an aeTargetFpsRange of (15,<wbr/> 30),<wbr/> when set by the
+application,<wbr/> the camera must be able to reach 15fps in sufficient dark scenes.<wbr/> This way
+the application knows the exact range of frame rate it can expect.<wbr/></p>
+            </td>
+          </tr>
 
           <tr class="entry_spacer"><td class="entry_spacer" colspan="7"></td></tr>
            <!-- end of entry -->
@@ -26601,7 +26612,7 @@ mode are also different from those of
 <a href="https://developer.android.com/reference/android/hardware/camera2/CameraMetadata.html#SENSOR_PIXEL_MODE_DEFAULT">Camera<wbr/>Metadata#SENSOR_<wbr/>PIXEL_<wbr/>MODE_<wbr/>DEFAULT</a> mode.<wbr/>
 They can be queried through
 <a href="https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics.html#get">CameraCharacteristics#get</a> with
-<a href="https://developer.android.com/reference/CameraCharacteristics.html#SCALER_STREAM_CONFIGURATION_MAP_MAXIMUM_RESOLUTION)">Camera<wbr/>Characteristics#SCALER_<wbr/>STREAM_<wbr/>CONFIGURATION_<wbr/>MAP_<wbr/>MAXIMUM_<wbr/>RESOLUTION)</a>.<wbr/>
+<a href="https://developer.android.com/reference/CameraCharacteristics.html#SCALER_STREAM_CONFIGURATION_MAP_MAXIMUM_RESOLUTION">Camera<wbr/>Characteristics#SCALER_<wbr/>STREAM_<wbr/>CONFIGURATION_<wbr/>MAP_<wbr/>MAXIMUM_<wbr/>RESOLUTION</a>.<wbr/>
 Unless reported by both
 <a href="https://developer.android.com/reference/android/hardware/camera2/params/StreamConfigurationMap.html">StreamConfigurationMap</a>s,<wbr/> the outputs from
 <code><a href="#static_android.scaler.streamConfigurationMapMaximumResolution">android.<wbr/>scaler.<wbr/>stream<wbr/>Configuration<wbr/>Map<wbr/>Maximum<wbr/>Resolution</a></code> and
@@ -26616,13 +26627,12 @@ capability.<wbr/> In that case:</p>
 <ul>
 <li>
 <p>The mandatory stream combinations listed in
-  <a href="https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics/mandatoryMaximumResolutionStreamCombinations.html">mandatoryMaximumResolutionStreamCombinations</a>
-  would not apply.<wbr/></p>
+  <a href="#static_android.scaler.mandatoryMaximumResolutionStreamCombinations">android.<wbr/>scaler.<wbr/>mandatory<wbr/>Maximum<wbr/>Resolution<wbr/>Stream<wbr/>Combinations</a>  would not apply.<wbr/></p>
 </li>
 <li>
 <p>The bayer pattern of {@code RAW} streams when
   <a href="https://developer.android.com/reference/android/hardware/camera2/CameraMetadata.html#SENSOR_PIXEL_MODE_MAXIMUM_RESOLUTION">Camera<wbr/>Metadata#SENSOR_<wbr/>PIXEL_<wbr/>MODE_<wbr/>MAXIMUM_<wbr/>RESOLUTION</a>
-  is selected will be the one listed in <a href="https://developer.android.com/reference/android/sensor/info/binningFactor.html">binningFactor</a>.<wbr/></p>
+  is selected will be the one listed in <a href="#static_android.sensor.info.binningFactor">android.<wbr/>sensor.<wbr/>info.<wbr/>binning<wbr/>Factor</a>.<wbr/></p>
 </li>
 <li>
 <p>The following keys will always be present:</p>
@@ -30588,7 +30598,7 @@ mode are also different from those of
 <a href="https://developer.android.com/reference/android/hardware/camera2/CameraMetadata.html#SENSOR_PIXEL_MODE_DEFAULT">Camera<wbr/>Metadata#SENSOR_<wbr/>PIXEL_<wbr/>MODE_<wbr/>DEFAULT</a> mode.<wbr/>
 They can be queried through
 <a href="https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics.html#get">CameraCharacteristics#get</a> with
-<a href="https://developer.android.com/reference/CameraCharacteristics.html#SCALER_STREAM_CONFIGURATION_MAP_MAXIMUM_RESOLUTION)">Camera<wbr/>Characteristics#SCALER_<wbr/>STREAM_<wbr/>CONFIGURATION_<wbr/>MAP_<wbr/>MAXIMUM_<wbr/>RESOLUTION)</a>.<wbr/>
+<a href="https://developer.android.com/reference/CameraCharacteristics.html#SCALER_STREAM_CONFIGURATION_MAP_MAXIMUM_RESOLUTION">Camera<wbr/>Characteristics#SCALER_<wbr/>STREAM_<wbr/>CONFIGURATION_<wbr/>MAP_<wbr/>MAXIMUM_<wbr/>RESOLUTION</a>.<wbr/>
 Unless reported by both
 <a href="https://developer.android.com/reference/android/hardware/camera2/params/StreamConfigurationMap.html">StreamConfigurationMap</a>s,<wbr/> the outputs from
 <code><a href="#static_android.scaler.streamConfigurationMapMaximumResolution">android.<wbr/>scaler.<wbr/>stream<wbr/>Configuration<wbr/>Map<wbr/>Maximum<wbr/>Resolution</a></code> and
@@ -30603,13 +30613,12 @@ capability.<wbr/> In that case:</p>
 <ul>
 <li>
 <p>The mandatory stream combinations listed in
-  <a href="https://developer.android.com/reference/android/hardware/camera2/CameraCharacteristics/mandatoryMaximumResolutionStreamCombinations.html">mandatoryMaximumResolutionStreamCombinations</a>
-  would not apply.<wbr/></p>
+  <a href="#static_android.scaler.mandatoryMaximumResolutionStreamCombinations">android.<wbr/>scaler.<wbr/>mandatory<wbr/>Maximum<wbr/>Resolution<wbr/>Stream<wbr/>Combinations</a>  would not apply.<wbr/></p>
 </li>
 <li>
 <p>The bayer pattern of {@code RAW} streams when
   <a href="https://developer.android.com/reference/android/hardware/camera2/CameraMetadata.html#SENSOR_PIXEL_MODE_MAXIMUM_RESOLUTION">Camera<wbr/>Metadata#SENSOR_<wbr/>PIXEL_<wbr/>MODE_<wbr/>MAXIMUM_<wbr/>RESOLUTION</a>
-  is selected will be the one listed in <a href="https://developer.android.com/reference/android/sensor/info/binningFactor.html">binningFactor</a>.<wbr/></p>
+  is selected will be the one listed in <a href="#static_android.sensor.info.binningFactor">android.<wbr/>sensor.<wbr/>info.<wbr/>binning<wbr/>Factor</a>.<wbr/></p>
 </li>
 <li>
 <p>The following keys will always be present:</p>
