@@ -2217,6 +2217,12 @@ xsi:schemaLocation="http://schemas.android.com/service/camera/metadata/ metadata
           maximum YUV_420_888 output size.
 
           </details>
+          <hal_details>
+          HAL must make sure the lower bound and upper bound of each supported targetFpsRange can
+          be reached. For example, if HAL supports an aeTargetFpsRange of (15, 30), when set by the
+          application, the camera must be able to reach 15fps in sufficient dark scenes. This way
+          the application knows the exact range of frame rate it can expect.
+          </hal_details>
           <tag id="BC" />
         </entry>
         <entry name="aeCompensationRange" type="int32" visibility="public"
@@ -11016,7 +11022,7 @@ xsi:schemaLocation="http://schemas.android.com/service/camera/metadata/ metadata
             {@link android.hardware.camera2.CameraMetadata#SENSOR_PIXEL_MODE_DEFAULT} mode.
             They can be queried through
             {@link android.hardware.camera2.CameraCharacteristics#get} with
-            {@link CameraCharacteristics#SCALER_STREAM_CONFIGURATION_MAP_MAXIMUM_RESOLUTION)}.
+            {@link CameraCharacteristics#SCALER_STREAM_CONFIGURATION_MAP_MAXIMUM_RESOLUTION}.
             Unless reported by both
             {@link android.hardware.camera2.params.StreamConfigurationMap}s, the outputs from
             `android.scaler.streamConfigurationMapMaximumResolution` and
@@ -11030,12 +11036,12 @@ xsi:schemaLocation="http://schemas.android.com/service/camera/metadata/ metadata
             capability. In that case:
 
             * The mandatory stream combinations listed in
-              {@link android.hardware.camera2.CameraCharacteristics.mandatoryMaximumResolutionStreamCombinations}
+              android.scaler.mandatoryMaximumResolutionStreamCombinations
               would not apply.
 
             * The bayer pattern of {@code RAW} streams when
               {@link android.hardware.camera2.CameraMetadata#SENSOR_PIXEL_MODE_MAXIMUM_RESOLUTION}
-              is selected will be the one listed in {@link android.sensor.info.binningFactor}.
+              is selected will be the one listed in android.sensor.info.binningFactor.
 
             * The following keys will always be present:
 
