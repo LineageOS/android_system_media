@@ -38,10 +38,7 @@ static inline std::vector<std::string> audio_get_configuration_paths() {
             ret = std::vector<std::string>({"/odm/etc", "/vendor/etc", "/system/etc"});
         } else {
             ret = std::vector<std::string>({
-                    "/odm/etc",
-                    std::string("/vendor/etc/audio/sku_") + value +
-                           (va_aosp ? "_qssi" : ""),
-                    std::string("/vendor/etc/audio/sku_") + value,
+                    "/odm/etc", std::string("/vendor/etc/audio/sku_") + value,
                     "/vendor/etc", "/system/etc"});
         }
         if (va_aosp) {
