@@ -96,10 +96,10 @@ struct camera_metadata {
     uint32_t                 version;
     uint32_t                 flags;
     metadata_size_t          entry_count;
-    metadata_size_t          entry_capacity;
+    metadata_size_t          entry_capacity; // Number of entries that can be stored
     metadata_uptrdiff_t      entries_start; // Offset from camera_metadata
     metadata_size_t          data_count;
-    metadata_size_t          data_capacity;
+    metadata_size_t          data_capacity; // Number of data bytes that can be stored
     metadata_uptrdiff_t      data_start; // Offset from camera_metadata
     uint32_t                 padding;    // padding to 8 bytes boundary
     metadata_vendor_id_t     vendor_id;
@@ -487,15 +487,30 @@ int validate_camera_metadata_structure(const camera_metadata_t *metadata,
         return CAMERA_METADATA_VALIDATION_ERROR;
     }
 
-    const metadata_uptrdiff_t entries_end =
-        header->entries_start + header->entry_capacity;
-    if (entries_end < header->entries_start || // overflow check
-        entries_end > header->data_start) {
+    // Check for overflow when calculating entry capacity bytes.
+    // (metadata_size_t)~0 represents the maximum representable value of metadata_size_t.
+    if (header->entry_capacity > (metadata_size_t)~0 / sizeof(camera_metadata_buffer_entry_t)) {
+        ALOGE("%s: Entry capacity (%" PRIu32 ") is too large",
+              __FUNCTION__, header->entry_capacity);
+        return CAMERA_METADATA_VALIDATION_ERROR;
+    }
 
+    metadata_size_t entries_capacity_bytes =
+            sizeof(camera_metadata_buffer_entry_t) * header->entry_capacity;
+    const metadata_uptrdiff_t entries_end =
+        header->entries_start + entries_capacity_bytes;
+
+    if (entries_end < header->entries_start) {
+        ALOGE("%s: Entry start (%" PRIu32 ") + capacity bytes (%" PRIu32 ") "
+              "overflows", __FUNCTION__, header->entries_start, entries_capacity_bytes);
+        return CAMERA_METADATA_VALIDATION_ERROR;
+    }
+
+    if (entries_end > header->data_start) {
         ALOGE("%s: Entry start + capacity (%" PRIu32 ") should be <= data start "
               "(%" PRIu32 ")",
                __FUNCTION__,
-              (header->entries_start + header->entry_capacity),
+              entries_end,
               header->data_start);
         return CAMERA_METADATA_VALIDATION_ERROR;
     }
