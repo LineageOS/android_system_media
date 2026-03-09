@@ -95,10 +95,10 @@ struct camera_metadata {
     uint32_t                 version;
     uint32_t                 flags;
     metadata_size_t          entry_count;
-    metadata_size_t          entry_capacity;
+    metadata_size_t          entry_capacity; // Number of entries that can be stored
     metadata_uptrdiff_t      entries_start; // Offset from camera_metadata
     metadata_size_t          data_count;
-    metadata_size_t          data_capacity;
+    metadata_size_t          data_capacity; // Number of data bytes that can be stored
     metadata_uptrdiff_t      data_start; // Offset from camera_metadata
     uint8_t                  reserved[];
 };
@@ -405,15 +405,30 @@ int validate_camera_metadata_structure(const camera_metadata_t *metadata,
         return ERROR;
     }
 
-    const metadata_uptrdiff_t entries_end =
-        metadata->entries_start + metadata->entry_capacity;
-    if (entries_end < metadata->entries_start || // overflow check
-        entries_end > metadata->data_start) {
+    // Check for overflow when calculating entry capacity bytes.
+    // (metadata_size_t)~0 represents the maximum representable value of metadata_size_t.
+    if (metadata->entry_capacity > (metadata_size_t)~0 / sizeof(camera_metadata_buffer_entry_t)) {
+        ALOGE("%s: Entry capacity (%" PRIu32 ") is too large",
+              __FUNCTION__, metadata->entry_capacity);
+        return ERROR;
+    }
 
+    metadata_size_t entries_capacity_bytes =
+            sizeof(camera_metadata_buffer_entry_t) * metadata->entry_capacity;
+    const metadata_uptrdiff_t entries_end =
+        metadata->entries_start + entries_capacity_bytes;
+
+    if (entries_end < metadata->entries_start) {
+        ALOGE("%s: Entry start (%" PRIu32 ") + capacity bytes (%" PRIu32 ") "
+              "overflows", __FUNCTION__, metadata->entries_start, entries_capacity_bytes);
+        return ERROR;
+    }
+
+    if (entries_end > metadata->data_start) {
         ALOGE("%s: Entry start + capacity (%" PRIu32 ") should be <= data start "
               "(%" PRIu32 ")",
                __FUNCTION__,
-              (metadata->entries_start + metadata->entry_capacity),
+              entries_end,
               metadata->data_start);
         return ERROR;
     }
