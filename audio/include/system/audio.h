@@ -1999,6 +1999,7 @@ static inline bool audio_is_iec61937_compatible(audio_format_t format)
     case AUDIO_FORMAT_AC3:         // IEC 61937-3:2017
     case AUDIO_FORMAT_AC4:         // IEC 61937-14:2017
     case AUDIO_FORMAT_AC4_L4:      // IEC 61937-14:2017
+    case AUDIO_FORMAT_DTS:         // IEC 61937-5:2017
     case AUDIO_FORMAT_E_AC3:       // IEC 61937-3:2017
     case AUDIO_FORMAT_E_AC3_JOC:   // IEC 61937-3:2017
     case AUDIO_FORMAT_MAT:         // IEC 61937-9:2017
