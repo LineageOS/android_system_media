@@ -1291,7 +1291,9 @@ typedef struct playback_track_metadata_v7 {
     struct playback_track_metadata base;
     audio_channel_mask_t channel_mask;
     char tags[AUDIO_ATTRIBUTES_TAGS_MAX_SIZE]; /* UTF8 */
+#ifndef SKIP_CODEC_PROVENANCE_FIELD
     char codec_provenance[AUDIO_ATTRIBUTES_CODEC_PROVENANCE_MAX_SIZE]; /* UTF8 */
+#endif
 } playback_track_metadata_v7_t;
 
 /** Metadata of a record track for an out stream. */
@@ -1306,7 +1308,9 @@ static inline void playback_track_metadata_to_v7(struct playback_track_metadata_
     dst->base = *src;
     dst->channel_mask = AUDIO_CHANNEL_NONE;
     dst->tags[0] = '\0';
+#ifndef SKIP_CODEC_PROVENANCE_FIELD
     dst->codec_provenance[0] = '\0';
+#endif
 }
 
 static inline void playback_track_metadata_from_v7(struct playback_track_metadata *dst,
